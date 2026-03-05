@@ -27,24 +27,23 @@ export class LocalizationHandlers {
     validateRequired(args, ['appId']);
     
     const params: Record<string, any> = {
-      limit: sanitizeLimit(limit),
-      'filter[app]': appId
+      limit: sanitizeLimit(limit)
     };
-    
+
     if (filter?.platform) {
       params['filter[platform]'] = filter.platform;
     }
-    
+
     if (filter?.versionString) {
       params['filter[versionString]'] = filter.versionString;
     }
-    
+
     if (filter?.appStoreState) {
       params['filter[appStoreState]'] = filter.appStoreState;
     }
-    
+
     return this.client.get<ListAppStoreVersionsResponse>(
-      '/appStoreVersions',
+      `/apps/${appId}/appStoreVersions`,
       params
     );
   }
@@ -58,12 +57,11 @@ export class LocalizationHandlers {
     validateRequired(args, ['appStoreVersionId']);
     
     const params: Record<string, any> = {
-      limit: sanitizeLimit(limit),
-      'filter[appStoreVersion]': appStoreVersionId
+      limit: sanitizeLimit(limit)
     };
-    
+
     return this.client.get<ListAppStoreVersionLocalizationsResponse>(
-      '/appStoreVersionLocalizations',
+      `/appStoreVersions/${appStoreVersionId}/appStoreVersionLocalizations`,
       params
     );
   }
